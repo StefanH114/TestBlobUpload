@@ -28,13 +28,9 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - run: |
-          az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite
-      #      az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite
-      # - name: Azure CLI script
-      #   uses: azure/CLI@v1
-      #   with:
-      #     azcliversion: latest
-      #     inlineScript: |
-      #       az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite
-      #     shell: pwsh
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite --auth-mode login
