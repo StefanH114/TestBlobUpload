@@ -34,3 +34,5 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite --auth-mode login
+            az storage blob update --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --container-name ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --name "selfasserted.html" --content-cache-control "public, max-age=240" --auth-mode login
+            az storage blob update --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --container-name ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --name "unified.html" --content-cache-control "public, max-age=240" --auth-mode login
