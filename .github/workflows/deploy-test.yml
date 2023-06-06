@@ -17,6 +17,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true 
       - name: Check out repo        
         uses: actions/checkout@v2
         
@@ -34,7 +35,7 @@ jobs:
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
-          azcliversion: 2.30.0
+          azcliversion: latest
           inlineScript: |
             $contentCacheControl = "public, max-age=240";
             $extensions = @(".html");
