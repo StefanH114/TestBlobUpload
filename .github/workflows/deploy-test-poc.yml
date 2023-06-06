@@ -35,5 +35,7 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
+            $contentCacheControl = "public, max-age=240";
+            write-output $contentCacheControl
             az account show
           shell: pwsh
