@@ -12,24 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     environment: TEST
     steps:
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
       - name: Check out repo
         uses: actions/checkout@v2
-
       - name: Update_JS_CSS_version_and_placeholders
         run: |
           ./src/Update_JS_CSS_version_and_placeholders.ps1 -SettingsFileName "${{ env.DEPLOYMENT_SETTINGS_FILE }}"
         shell: pwsh
-
       - name: Clean deployment files
         run: |
           rm -f \
             ./src/Update_JS_CSS_version_and_placeholders.ps1 \
             ./src/deploymentSettings_*
-
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
