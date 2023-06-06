@@ -28,24 +28,8 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true 
       - run: |
-          $contentCacheControl = "public, max-age=240";
-          $extensions = @(".html");
-          $storageAccount =${{ env.BLOB_STORAGE_ACCOUNT_NAME }};
-          $containerName = ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }}
-          az storage blob upload-batch --account-name $storageAccount --destination $containerName --source "./src/" --overwrite
-          $blobs = az storage blob list --account-name $storageAccount --container-name $containerName --num-results * --output json | ConvertFrom-Json
-          foreach($blob in $blobs)
-          {
-              $blobName = $blob.name;
-              $extension = [System.IO.Path]::GetExtension($blobName).ToLower();
-              if($extensions.Contains($extension))
-              {
-                  az storage blob update --account-name $storageAccount --container-name $containerName --name $blobName --content-cache-control $contentCacheControl
-                  Write-Host "Updated $blobName" 
-              }
-          }  
+          az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite
       #      az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite
       # - name: Azure CLI script
       #   uses: azure/CLI@v1
