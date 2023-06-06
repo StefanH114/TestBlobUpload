@@ -33,7 +33,7 @@ jobs:
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
-          azcliversion: 2.30.0
+          azcliversion: 2.49.0
           inlineScript: |
             az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite
           shell: pwsh
