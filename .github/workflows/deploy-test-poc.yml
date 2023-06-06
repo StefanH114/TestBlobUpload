@@ -35,8 +35,5 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
-            contentCacheControl = "public, max-age=240";
-            storageAccount =${{ env.BLOB_STORAGE_ACCOUNT_NAME }};
-            containerName = ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }}
-            az storage blob upload-batch --account-name $storageAccount --destination $containerName --source "./src/" --overwrite
+            az storage blob upload-batch --account-name ${{ env.BLOB_STORAGE_ACCOUNT_NAME }} --destination ${{ env.BLOB_STORAGE_ACCOUNT_CONTAINER_NAME }} --source "./src/" --overwrite
           shell: pwsh
